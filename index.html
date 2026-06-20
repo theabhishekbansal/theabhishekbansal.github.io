@@ -9,17 +9,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0B1622;
-    --bg-elevated: #101F30;
-    --bg-card: #142639;
-    --ink: #ECF1F6;
-    --ink-dim: #9AAAB9;
-    --ink-faint: #5E707F;
-    --line: rgba(255,255,255,0.08);
-    --line-strong: rgba(255,255,255,0.14);
-    --amber: #D9A441;
-    --amber-dim: rgba(217,164,65,0.14);
-    --teal: #5B9C8F;
+    --bg: #F7F3EC;
+    --bg-card: #FFFFFF;
+    --bg-elevated: #EFE8D8;
+    --ink: #1C2B3A;
+    --ink-dim: #5C6B78;
+    --ink-faint: #9AA0A6;
+    --line: rgba(28,43,58,0.10);
+    --line-strong: rgba(28,43,58,0.18);
+    --rust: #B5652E;
+    --rust-dim: rgba(181,101,46,0.10);
+    --teal: #3E6B5C;
+    --teal-dim: rgba(62,107,92,0.10);
     --serif: 'Fraunces', serif;
     --sans: 'Inter', sans-serif;
     --mono: 'JetBrains Mono', monospace;
@@ -34,243 +35,195 @@
     overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 32px;}
-
-  /* ---------- noise texture ---------- */
-  .grain{
-    position:fixed;inset:0;pointer-events:none;z-index:1;opacity:0.025;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
 
   /* ---------- nav ---------- */
   nav{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    background:rgba(11,22,34,0.85);backdrop-filter:blur(12px);
+    background:rgba(247,243,236,0.88);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;}
   .logo{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:0.01em;}
-  .logo span{color:var(--amber);}
+  .logo span{color:var(--rust);}
   .navlinks{display:flex;gap:36px;font-size:13px;letter-spacing:0.03em;text-transform:uppercase;color:var(--ink-dim);}
-  .navlinks a{transition:color .2s;}
-  .navlinks a:hover{color:var(--amber);}
-  @media(max-width:720px){.navlinks{display:none;}}
+  .navlinks a{transition:color .2s;position:relative;}
+  .navlinks a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--rust);transition:width .25s;}
+  .navlinks a:hover{color:var(--rust);}
+  .navlinks a:hover::after{width:100%;}
+  @media(max-width:760px){.navlinks{display:none;}}
 
   /* ---------- hero ---------- */
   header.hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;align-items:center;
-    padding-top:68px;
-    overflow:hidden;
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    padding-top:68px;overflow:hidden;
   }
-  .hero-bg{
-    position:absolute;inset:0;z-index:0;
-  }
+  .hero-bg{position:absolute;inset:0;z-index:0;}
   .hero-bg svg{position:absolute;inset:0;width:100%;height:100%;}
   .hero-content{position:relative;z-index:2;width:100%;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:10px;
     font-family:var(--mono);font-size:12px;letter-spacing:0.08em;
-    color:var(--amber);text-transform:uppercase;margin-bottom:28px;
+    color:var(--rust);text-transform:uppercase;margin-bottom:28px;
   }
-  .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);}
+  .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--rust);}
   h1.title{
-    font-family:var(--serif);
-    font-weight:500;
-    font-size:clamp(48px,8vw,92px);
-    line-height:0.98;
-    letter-spacing:-0.01em;
-    max-width:880px;
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(44px,7.5vw,86px);line-height:1.0;letter-spacing:-0.01em;
+    max-width:860px;
   }
-  h1.title em{font-style:italic;color:var(--amber);font-weight:400;}
-  .hero-sub{
-    margin-top:28px;
-    font-size:clamp(17px,2vw,20px);
-    color:var(--ink-dim);
-    max-width:560px;
-    line-height:1.7;
-  }
-  .hero-meta{
-    margin-top:48px;
-    display:flex;flex-wrap:wrap;gap:28px;
-    font-family:var(--mono);font-size:13px;color:var(--ink-faint);
-  }
-  .hero-meta b{color:var(--ink);font-weight:500;}
-  .hero-cta{
-    margin-top:48px;display:flex;gap:16px;flex-wrap:wrap;
-  }
+  h1.title em{font-style:italic;color:var(--rust);font-weight:400;}
+  .hero-sub{margin-top:26px;font-size:clamp(17px,2vw,19px);color:var(--ink-dim);max-width:560px;line-height:1.7;}
+  .hero-stats{margin-top:52px;display:flex;flex-wrap:wrap;gap:44px;}
+  .hstat{}
+  .hstat-num{font-family:var(--serif);font-size:38px;font-weight:500;color:var(--ink);}
+  .hstat-num span{color:var(--rust);}
+  .hstat-label{font-size:12px;color:var(--ink-faint);margin-top:4px;letter-spacing:0.02em;}
+  .hero-cta{margin-top:48px;display:flex;gap:16px;flex-wrap:wrap;}
   .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:14px 28px;border-radius:2px;
-    font-size:14px;font-weight:500;letter-spacing:0.02em;
-    transition:all .25s;border:1px solid var(--line-strong);
+    display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:3px;
+    font-size:14px;font-weight:500;letter-spacing:0.02em;transition:all .25s;border:1px solid var(--line-strong);
   }
-  .btn-primary{background:var(--amber);color:#1A1306;border-color:var(--amber);}
-  .btn-primary:hover{background:#E8B559;transform:translateY(-1px);}
-  .btn-ghost{color:var(--ink);}
-  .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
-
+  .btn-primary{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .btn-primary:hover{background:var(--rust);border-color:var(--rust);transform:translateY(-1px);}
+  .btn-ghost:hover{border-color:var(--rust);color:var(--rust);}
   .scroll-cue{
-    position:absolute;bottom:36px;left:32px;
-    display:flex;align-items:center;gap:12px;
-    font-family:var(--mono);font-size:11px;color:var(--ink-faint);
-    letter-spacing:0.1em;text-transform:uppercase;
+    position:absolute;bottom:36px;left:32px;display:flex;align-items:center;gap:12px;
+    font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:0.1em;text-transform:uppercase;
   }
-  .scroll-cue .line{width:1px;height:40px;background:linear-gradient(to bottom, var(--amber), transparent);}
+  .scroll-cue .line{width:1px;height:40px;background:linear-gradient(to bottom, var(--rust), transparent);}
 
   /* ---------- section shell ---------- */
   section{padding:120px 0;position:relative;}
-  .section-head{margin-bottom:64px;}
-  .section-num{
-    font-family:var(--mono);font-size:13px;color:var(--amber);
-    letter-spacing:0.08em;margin-bottom:16px;display:block;
-  }
-  .section-title{
-    font-family:var(--serif);font-weight:500;
-    font-size:clamp(32px,4.5vw,48px);
-    letter-spacing:-0.01em;
-    max-width:700px;
-  }
-  .section-title em{font-style:italic;color:var(--amber);font-weight:400;}
-  .section-desc{
-    margin-top:18px;color:var(--ink-dim);font-size:16px;max-width:600px;
-  }
-
+  .section-head{margin-bottom:60px;}
+  .section-num{font-family:var(--mono);font-size:13px;color:var(--rust);letter-spacing:0.08em;margin-bottom:16px;display:block;}
+  .section-title{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.2vw,46px);letter-spacing:-0.01em;max-width:680px;}
+  .section-title em{font-style:italic;color:var(--rust);font-weight:400;}
+  .section-desc{margin-top:16px;color:var(--ink-dim);font-size:16px;max-width:580px;}
   hr.divider{border:none;border-top:1px solid var(--line);margin:0;}
 
   /* ---------- about ---------- */
-  .about-grid{
-    display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;
-  }
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;}
   @media(max-width:860px){.about-grid{grid-template-columns:1fr;}}
   .about-text p{color:var(--ink-dim);font-size:17px;margin-bottom:20px;line-height:1.8;}
   .about-text strong{color:var(--ink);font-weight:600;}
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
-  .stat{background:var(--bg-elevated);padding:28px 24px;}
-  .stat-num{font-family:var(--serif);font-size:34px;color:var(--amber);font-weight:500;}
+  .stat{background:var(--bg-card);padding:30px 24px;transition:background .3s;}
+  .stat:hover{background:var(--rust-dim);}
+  .stat-num{font-family:var(--serif);font-size:36px;color:var(--rust);font-weight:500;}
   .stat-label{font-size:12px;color:var(--ink-faint);margin-top:6px;letter-spacing:0.02em;}
 
-  /* ---------- experience timeline ---------- */
-  .timeline{position:relative;}
-  .tl-item{
-    display:grid;grid-template-columns:160px 1fr;gap:40px;
-    padding:36px 0;border-top:1px solid var(--line);
+  /* ---------- experience: tabbed ---------- */
+  .tabs{display:flex;gap:8px;margin-bottom:0;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .tab-btn{
+    padding:14px 22px;font-size:14px;font-weight:500;color:var(--ink-faint);
+    border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px;
   }
-  .tl-item:first-child{border-top:1px solid var(--line);}
-  @media(max-width:720px){.tl-item{grid-template-columns:1fr;gap:10px;}}
-  .tl-date{font-family:var(--mono);font-size:12px;color:var(--ink-faint);padding-top:4px;letter-spacing:0.03em;}
-  .tl-role{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:4px;}
-  .tl-company{color:var(--amber);font-size:14px;font-weight:500;margin-bottom:16px;}
+  .tab-btn:hover{color:var(--ink);}
+  .tab-btn.active{color:var(--rust);border-bottom-color:var(--rust);}
+  .tab-panel{display:none;padding-top:44px;animation:fadeIn .4s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .tl-meta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:28px;}
+  .tl-role{font-family:var(--serif);font-size:26px;font-weight:500;}
+  .tl-company{color:var(--rust);font-size:14px;font-weight:500;margin-top:4px;}
+  .tl-date{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:0.03em;}
   .tl-bullets{list-style:none;}
-  .tl-bullets li{
-    position:relative;padding-left:20px;margin-bottom:10px;
-    color:var(--ink-dim);font-size:15px;line-height:1.65;
-  }
-  .tl-bullets li::before{
-    content:'';position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--amber);
-  }
+  .tl-bullets li{position:relative;padding-left:22px;margin-bottom:14px;color:var(--ink-dim);font-size:15.5px;line-height:1.7;}
+  .tl-bullets li::before{content:'';position:absolute;left:0;top:10px;width:8px;height:1px;background:var(--rust);}
 
-  /* ---------- projects (case studies) ---------- */
-  .project-grid{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);}
-  .project{
-    background:var(--bg-elevated);
-    padding:48px;
-    display:grid;grid-template-columns:36px 1fr 1fr;gap:32px;
-    transition:background .3s;
+  /* ---------- projects: expandable ---------- */
+  .project-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .project{background:var(--bg-card);transition:background .3s;}
+  .project-head{
+    display:grid;grid-template-columns:40px 1fr auto;gap:24px;align-items:center;
+    padding:30px 36px;cursor:pointer;
   }
-  .project:hover{background:var(--bg-card);}
-  @media(max-width:860px){.project{grid-template-columns:1fr;gap:20px;}}
-  .project-index{font-family:var(--mono);color:var(--amber);font-size:14px;}
-  .project-name{font-family:var(--serif);font-size:24px;font-weight:500;margin-bottom:12px;}
-  .project-problem{color:var(--ink-faint);font-size:13px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;}
-  .project-desc{color:var(--ink-dim);font-size:15px;line-height:1.7;margin-bottom:20px;}
-  .project-outcomes{display:flex;flex-direction:column;gap:10px;}
+  @media(max-width:700px){.project-head{grid-template-columns:32px 1fr auto;padding:24px 20px;}}
+  .project-index{font-family:var(--mono);color:var(--rust);font-size:14px;}
+  .project-name{font-family:var(--serif);font-size:22px;font-weight:500;}
+  .project-tagline{color:var(--ink-faint);font-size:13px;margin-top:4px;}
+  .project-toggle{
+    width:32px;height:32px;border-radius:50%;border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;color:var(--ink-dim);
+    transition:all .3s;flex-shrink:0;
+  }
+  .project-toggle svg{width:14px;height:14px;transition:transform .3s;}
+  .project.open .project-toggle{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+  .project.open .project-toggle svg{transform:rotate(45deg);}
+  .project-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
+  .project.open .project-body{max-height:600px;}
+  .project-inner{padding:0 36px 36px;display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+  @media(max-width:700px){.project-inner{grid-template-columns:1fr;padding:0 20px 28px;}}
+  .project-col-label{font-family:var(--mono);font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+  .project-desc{color:var(--ink-dim);font-size:15px;line-height:1.75;margin-bottom:24px;}
   .outcome-pill{
-    display:flex;align-items:baseline;gap:10px;
-    font-size:14px;color:var(--ink);
-    padding:10px 16px;background:var(--amber-dim);border-left:2px solid var(--amber);
+    display:flex;align-items:baseline;gap:10px;font-size:14px;color:var(--ink);
+    padding:11px 16px;background:var(--teal-dim);border-left:2px solid var(--teal);margin-bottom:8px;
   }
-  .outcome-pill b{font-family:var(--mono);color:var(--amber);font-size:13px;white-space:nowrap;}
+  .outcome-pill b{font-family:var(--mono);color:var(--teal);font-size:13px;white-space:nowrap;}
 
-  /* ---------- skills ---------- */
-  .skills-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:48px;}
-  @media(max-width:720px){.skills-cols{grid-template-columns:1fr;}}
-  .skill-group{margin-bottom:36px;}
-  .skill-group-title{
-    font-family:var(--mono);font-size:12px;color:var(--amber);
-    letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;
-    padding-bottom:12px;border-bottom:1px solid var(--line);
+  /* ---------- skills: filterable ---------- */
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;}
+  .filter-btn{
+    padding:10px 18px;font-size:13px;font-weight:500;border:1px solid var(--line-strong);
+    border-radius:20px;color:var(--ink-dim);transition:all .25s;
   }
-  .skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .filter-btn:hover{border-color:var(--rust);color:var(--rust);}
+  .filter-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:10px;}
   .tag{
-    font-size:13px;color:var(--ink-dim);padding:7px 14px;
-    border:1px solid var(--line-strong);border-radius:2px;
-    transition:all .2s;
+    font-size:13.5px;color:var(--ink-dim);padding:9px 16px;
+    border:1px solid var(--line-strong);border-radius:20px;background:var(--bg-card);
+    transition:all .25s;
   }
-  .tag:hover{border-color:var(--amber);color:var(--amber);}
+  .tag.hidden{display:none;}
+  .tag:hover{border-color:var(--rust);color:var(--rust);transform:translateY(-1px);}
 
-  /* ---------- gallery / placeholder section ---------- */
-  .gallery-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
-    background:var(--line);border:1px solid var(--line);
-  }
+  /* ---------- gallery ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);}
   @media(max-width:720px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
   .gallery-slot{
-    aspect-ratio:4/3;background:var(--bg-elevated);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:10px;color:var(--ink-faint);
-    border:1px dashed transparent;
-    transition:all .25s;cursor:default;
+    aspect-ratio:4/3;background:var(--bg-card);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:10px;color:var(--ink-faint);
+    transition:all .25s;
   }
-  .gallery-slot:hover{background:var(--bg-card);border-color:var(--line-strong);}
-  .gallery-slot svg{width:28px;height:28px;opacity:0.5;}
+  .gallery-slot:hover{background:var(--rust-dim);color:var(--rust);}
+  .gallery-slot svg{width:26px;height:26px;opacity:0.6;}
   .gallery-slot span{font-family:var(--mono);font-size:11px;letter-spacing:0.04em;text-transform:uppercase;}
 
-  /* ---------- events / timeline strip ---------- */
   .events-note{
-    border:1px dashed var(--line-strong);
-    padding:40px;text-align:center;color:var(--ink-faint);
+    border:1px dashed var(--line-strong);padding:40px;text-align:center;color:var(--ink-faint);
     font-family:var(--mono);font-size:13px;letter-spacing:0.02em;
   }
 
-  /* ---------- footer / contact ---------- */
-  footer{
-    padding:100px 0 48px;
-    border-top:1px solid var(--line);
-    background:var(--bg-elevated);
-  }
+  /* ---------- footer ---------- */
+  footer{padding:100px 0 48px;border-top:1px solid var(--line);background:var(--bg-elevated);}
   .footer-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;}
   @media(max-width:720px){.footer-grid{grid-template-columns:1fr;}}
-  .footer-title{font-family:var(--serif);font-size:clamp(30px,4vw,44px);font-weight:500;line-height:1.1;max-width:480px;}
-  .footer-title em{color:var(--amber);font-style:italic;font-weight:400;}
-  .contact-list{display:flex;flex-direction:column;gap:18px;}
+  .footer-title{font-family:var(--serif);font-size:clamp(28px,3.8vw,42px);font-weight:500;line-height:1.15;max-width:480px;}
+  .footer-title em{color:var(--rust);font-style:italic;font-weight:400;}
+  .contact-list{display:flex;flex-direction:column;gap:0;}
   .contact-row{
     display:flex;justify-content:space-between;align-items:center;
-    padding-bottom:18px;border-bottom:1px solid var(--line);
-    font-size:15px;
+    padding:18px 0;border-bottom:1px solid var(--line);font-size:15px;transition:padding-left .25s;
   }
+  .contact-row:hover{padding-left:8px;}
   .contact-row span:first-child{color:var(--ink-faint);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:0.05em;}
-  .contact-row a:hover{color:var(--amber);}
+  .contact-row a:hover{color:var(--rust);}
   .footer-bottom{
     margin-top:80px;padding-top:24px;border-top:1px solid var(--line);
     display:flex;justify-content:space-between;color:var(--ink-faint);font-size:12px;font-family:var(--mono);
   }
   @media(max-width:600px){.footer-bottom{flex-direction:column;gap:8px;}}
 
-  /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
-
-  @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1;transform:none;transition:none;}
-    html{scroll-behavior:auto;}
-  }
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
 </style>
 </head>
 <body>
-
-<div class="grain"></div>
 
 <nav>
   <div class="wrap">
@@ -279,6 +232,7 @@
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#work">Work</a>
+      <a href="#skills">Toolkit</a>
       <a href="#gallery">Gallery</a>
       <a href="#contact">Contact</a>
     </div>
@@ -288,20 +242,14 @@
 <header class="hero">
   <div class="hero-bg">
     <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#0B1622"/>
-          <stop offset="100%" stop-color="#0E1D2C"/>
-        </linearGradient>
-      </defs>
-      <rect width="1440" height="900" fill="url(#g1)"/>
-      <g opacity="0.5" stroke="#1C3147" stroke-width="1">
+      <rect width="1440" height="900" fill="#F7F3EC"/>
+      <g opacity="0.55" stroke="#E3DBC8" stroke-width="1">
         <line x1="0" y1="650" x2="1440" y2="650"/>
         <line x1="0" y1="500" x2="1440" y2="500"/>
         <line x1="0" y1="350" x2="1440" y2="350"/>
       </g>
-      <polyline points="900,700 980,640 1060,670 1140,580 1220,610 1300,500 1380,540" fill="none" stroke="#D9A441" stroke-width="2" opacity="0.55"/>
-      <g fill="#D9A441" opacity="0.7">
+      <polyline points="900,700 980,640 1060,670 1140,580 1220,610 1300,500 1380,540" fill="none" stroke="#B5652E" stroke-width="2" opacity="0.5"/>
+      <g fill="#B5652E" opacity="0.65">
         <circle cx="900" cy="700" r="3"/><circle cx="980" cy="640" r="3"/><circle cx="1060" cy="670" r="3"/>
         <circle cx="1140" cy="580" r="3"/><circle cx="1220" cy="610" r="3"/><circle cx="1300" cy="500" r="3"/><circle cx="1380" cy="540" r="4"/>
       </g>
@@ -311,14 +259,14 @@
     <div class="eyebrow">Program Manager · Founder's Office</div>
     <h1 class="title">Structure from <em>ambiguity.</em><br>Execution at scale.</h1>
     <p class="hero-sub">I build the systems behind the scenes — turning manual chaos into measurable, scalable operations. 5+ years owning end-to-end programs in Founder's Office roles at high-growth startups.</p>
-    <div class="hero-meta">
-      <div><b>5+ yrs</b> experience</div>
-      <div><b>3</b> systems built end-to-end</div>
-      <div><b>Bengaluru</b>, India</div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num"><span class="counter" data-target="5" data-suffix="+">0</span> yrs</div><div class="hstat-label">Experience</div></div>
+      <div class="hstat"><div class="hstat-num"><span class="counter" data-target="3">0</span></div><div class="hstat-label">Systems built end-to-end</div></div>
+      <div class="hstat"><div class="hstat-num"><span class="counter" data-target="10" data-suffix="×">0</span></div><div class="hstat-label">Order processing speed</div></div>
     </div>
     <div class="hero-cta">
       <a href="#work" class="btn btn-primary">View my work →</a>
-      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      <a href="#contact" class="btn btn-ghost" style="color:var(--ink);">Get in touch</a>
     </div>
   </div>
   <div class="scroll-cue"><div class="line"></div>scroll</div>
@@ -338,10 +286,10 @@
         <p>I've done this across <strong>order processing, procurement, inventory, and service operations</strong> — and along the way, led cross-functional work spanning Finance, Legal, Supply Chain, Product, and Marketing.</p>
       </div>
       <div class="stat-grid reveal">
-        <div class="stat"><div class="stat-num">10×</div><div class="stat-label">Faster order processing</div></div>
-        <div class="stat"><div class="stat-num">90%</div><div class="stat-label">SLA adherence achieved</div></div>
-        <div class="stat"><div class="stat-num">3×</div><div class="stat-label">Cost reduction via Zoho</div></div>
-        <div class="stat"><div class="stat-num">30%</div><div class="stat-label">YoY partner revenue growth</div></div>
+        <div class="stat"><div class="stat-num"><span class="counter" data-target="10" data-suffix="×">0</span></div><div class="stat-label">Faster order processing</div></div>
+        <div class="stat"><div class="stat-num"><span class="counter" data-target="90" data-suffix="%">0</span></div><div class="stat-label">SLA adherence achieved</div></div>
+        <div class="stat"><div class="stat-num"><span class="counter" data-target="3" data-suffix="×">0</span></div><div class="stat-label">Cost reduction via Zoho</div></div>
+        <div class="stat"><div class="stat-num"><span class="counter" data-target="30" data-suffix="%">0</span></div><div class="stat-label">YoY partner revenue growth</div></div>
       </div>
     </div>
   </div>
@@ -356,109 +304,143 @@
       <span class="section-num">02 — Experience</span>
       <h2 class="section-title">Where I've <em>built</em> it.</h2>
     </div>
-    <div class="timeline reveal">
-
-      <div class="tl-item">
-        <div class="tl-date">FEB 2022 — PRESENT</div>
-        <div>
-          <div class="tl-role">Program Manager</div>
-          <div class="tl-company">TEACHMINT · Bengaluru</div>
-          <ul class="tl-bullets">
-            <li>Led the Order Management System from BRD to adoption — cut processing time from ~3 hours to under 30 minutes across 10k+ monthly orders.</li>
-            <li>Migrated 6 fragmented tools into Zoho One, cutting annual software costs by 3×.</li>
-            <li>Raised SLA adherence from 70% to 90% in 6 months via automated dispatch tracking.</li>
-            <li>Designed procurement & inventory flow enabling real-time stock visibility for the first time.</li>
-            <li>Launched Partners Meet programme, driving 30% YoY partner revenue growth.</li>
-            <li>Managed 4 direct reports; led execution across Finance, Supply Chain, Legal, Product and Marketing.</li>
-          </ul>
-        </div>
+    <div class="reveal">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="t1">Teachmint</button>
+        <button class="tab-btn" data-tab="t2">Unacademy</button>
+        <button class="tab-btn" data-tab="t3">PlanetSpark</button>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-date">JAN 2021 — JUN 2021</div>
-        <div>
-          <div class="tl-role">Operations Specialist</div>
-          <div class="tl-company">UNACADEMY · Bengaluru</div>
-          <ul class="tl-bullets">
-            <li>Mapped and streamlined operational workflows, maintaining 90% CSAT across stakeholders.</li>
-            <li>Built KPI dashboards in LeadSquared and Looker Studio used directly in weekly executive reviews.</li>
-          </ul>
+      <div class="tab-panel active" id="t1">
+        <div class="tl-meta">
+          <div><div class="tl-role">Program Manager</div><div class="tl-company">TEACHMINT · Bengaluru</div></div>
+          <div class="tl-date">FEB 2022 — PRESENT</div>
         </div>
+        <ul class="tl-bullets">
+          <li>Led the Order Management System from BRD to adoption — cut processing time from ~3 hours to under 30 minutes across 10k+ monthly orders.</li>
+          <li>Migrated 6 fragmented tools into Zoho One, cutting annual software costs by 3×.</li>
+          <li>Raised SLA adherence from 70% to 90% in 6 months via automated dispatch tracking.</li>
+          <li>Designed procurement & inventory flow enabling real-time stock visibility for the first time.</li>
+          <li>Launched Partners Meet programme, driving 30% YoY partner revenue growth.</li>
+          <li>Managed 4 direct reports; led execution across Finance, Supply Chain, Legal, Product and Marketing.</li>
+        </ul>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-date">JAN 2020 — OCT 2020</div>
-        <div>
-          <div class="tl-role">Business Development Associate</div>
-          <div class="tl-company">PLANETSPARK · Gurugram</div>
-          <ul class="tl-bullets">
-            <li>Expanded company offerings into international markets, consistently exceeding sales targets.</li>
-          </ul>
+      <div class="tab-panel" id="t2">
+        <div class="tl-meta">
+          <div><div class="tl-role">Operations Specialist</div><div class="tl-company">UNACADEMY · Bengaluru</div></div>
+          <div class="tl-date">JAN 2021 — JUN 2021</div>
         </div>
+        <ul class="tl-bullets">
+          <li>Mapped and streamlined operational workflows, maintaining 90% CSAT across stakeholders.</li>
+          <li>Built KPI dashboards in LeadSquared and Looker Studio used directly in weekly executive reviews.</li>
+        </ul>
       </div>
 
+      <div class="tab-panel" id="t3">
+        <div class="tl-meta">
+          <div><div class="tl-role">Business Development Associate</div><div class="tl-company">PLANETSPARK · Gurugram</div></div>
+          <div class="tl-date">JAN 2020 — OCT 2020</div>
+        </div>
+        <ul class="tl-bullets">
+          <li>Expanded company offerings into international markets, consistently exceeding sales targets through proactive prospecting and deal closure.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- WORK / CASE STUDIES -->
+<!-- WORK / CASE STUDIES (expandable) -->
 <section id="work">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="section-num">03 — Selected work</span>
       <h2 class="section-title">Three systems, <em>built from scratch.</em></h2>
-      <p class="section-desc">Each one started as a gap nobody owned. Here's how they got solved.</p>
+      <p class="section-desc">Each one started as a gap nobody owned. Click to see how they got solved.</p>
     </div>
 
-    <div class="project-grid reveal">
+    <div class="project-list reveal">
 
-      <div class="project">
-        <div class="project-index">01</div>
-        <div>
-          <div class="project-name">Order Management System</div>
-          <div class="project-problem">The problem</div>
-          <p class="project-desc">Manual order processing was the single biggest bottleneck — slow, error-prone, and unable to scale with growing order volume.</p>
-          <div class="project-problem">What I did</div>
-          <p class="project-desc">Owned it end-to-end: identified the root cause, wrote the BRD, built and tested the prototype with the ops team, and drove org-wide adoption.</p>
+      <div class="project" data-project="1">
+        <div class="project-head">
+          <div class="project-index">01</div>
+          <div>
+            <div class="project-name">Order Management System</div>
+            <div class="project-tagline">10× faster processing, same team size</div>
+          </div>
+          <div class="project-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
         </div>
-        <div class="project-outcomes">
-          <div class="outcome-pill"><b>3 HRS → 30 MIN</b> per-order processing time</div>
-          <div class="outcome-pill"><b>10×</b> order volume, same team size</div>
-          <div class="outcome-pill"><b>↓</b> manual errors, ↑ accuracy</div>
+        <div class="project-body">
+          <div class="project-inner">
+            <div>
+              <div class="project-col-label">The problem</div>
+              <p class="project-desc">Manual order processing was the single biggest bottleneck — slow, error-prone, and unable to scale with growing order volume.</p>
+              <div class="project-col-label">What I did</div>
+              <p class="project-desc" style="margin-bottom:0;">Owned it end-to-end: identified the root cause, wrote the BRD, built and tested the prototype with the ops team, and drove org-wide adoption.</p>
+            </div>
+            <div>
+              <div class="project-col-label">Outcomes</div>
+              <div class="outcome-pill"><b>3HRS → 30MIN</b> per-order processing time</div>
+              <div class="outcome-pill"><b>10×</b> order volume, same team size</div>
+              <div class="outcome-pill"><b>↓ ERRORS</b> improved accuracy</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="project">
-        <div class="project-index">02</div>
-        <div>
-          <div class="project-name">Procurement & Inventory</div>
-          <div class="project-problem">The problem</div>
-          <p class="project-desc">No structured flow existed from purchase order to stock — inventory visibility was reactive, not planned.</p>
-          <div class="project-problem">What I did</div>
-          <p class="project-desc">Designed the full flow: PO → billing → stock-in → QC categorisation, in partnership with Finance and Supply Chain.</p>
+      <div class="project" data-project="2">
+        <div class="project-head">
+          <div class="project-index">02</div>
+          <div>
+            <div class="project-name">Procurement & Inventory</div>
+            <div class="project-tagline">Real-time stock visibility, end to end</div>
+          </div>
+          <div class="project-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
         </div>
-        <div class="project-outcomes">
-          <div class="outcome-pill"><b>REAL-TIME</b> stock visibility, for the first time</div>
-          <div class="outcome-pill"><b>STRUCTURED</b> fulfilment planning</div>
-          <div class="outcome-pill"><b>FASTER</b> decision-making on inventory</div>
+        <div class="project-body">
+          <div class="project-inner">
+            <div>
+              <div class="project-col-label">The problem</div>
+              <p class="project-desc">No structured flow existed from purchase order to stock — inventory visibility was reactive, not planned.</p>
+              <div class="project-col-label">What I did</div>
+              <p class="project-desc" style="margin-bottom:0;">Designed the full flow: PO → billing → stock-in → QC categorisation, in partnership with Finance and Supply Chain.</p>
+            </div>
+            <div>
+              <div class="project-col-label">Outcomes</div>
+              <div class="outcome-pill"><b>REAL-TIME</b> stock visibility, for the first time</div>
+              <div class="outcome-pill"><b>STRUCTURED</b> fulfilment planning</div>
+              <div class="outcome-pill"><b>FASTER</b> decision-making on inventory</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="project">
-        <div class="project-index">03</div>
-        <div>
-          <div class="project-name">Service & Replacement Mgmt.</div>
-          <div class="project-problem">The problem</div>
-          <p class="project-desc">Replacement requests had zero system visibility — tracked informally, creating a direct CSAT risk.</p>
-          <div class="project-problem">What I did</div>
-          <p class="project-desc">Built a tracking system bringing 100% of requests on-system, and rolled it out with support and ops teams.</p>
+      <div class="project" data-project="3">
+        <div class="project-head">
+          <div class="project-index">03</div>
+          <div>
+            <div class="project-name">Service & Replacement Mgmt.</div>
+            <div class="project-tagline">100% visibility, zero blind spots</div>
+          </div>
+          <div class="project-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
         </div>
-        <div class="project-outcomes">
-          <div class="outcome-pill"><b>100%</b> on-system visibility</div>
-          <div class="outcome-pill"><b>FASTER</b> resolution turnaround</div>
-          <div class="outcome-pill"><b>↑</b> CSAT on replacements</div>
+        <div class="project-body">
+          <div class="project-inner">
+            <div>
+              <div class="project-col-label">The problem</div>
+              <p class="project-desc">Replacement requests had zero system visibility — tracked informally, creating a direct CSAT risk.</p>
+              <div class="project-col-label">What I did</div>
+              <p class="project-desc" style="margin-bottom:0;">Built a tracking system bringing 100% of requests on-system, and rolled it out with support and ops teams.</p>
+            </div>
+            <div>
+              <div class="project-col-label">Outcomes</div>
+              <div class="outcome-pill"><b>100%</b> on-system visibility</div>
+              <div class="outcome-pill"><b>FASTER</b> resolution turnaround</div>
+              <div class="outcome-pill"><b>↑ CSAT</b> on replacements</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -468,58 +450,43 @@
 
 <hr class="divider">
 
-<!-- SKILLS -->
+<!-- SKILLS (filterable) -->
 <section id="skills">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="section-num">04 — Toolkit</span>
       <h2 class="section-title">What I work <em>with.</em></h2>
     </div>
-    <div class="skills-cols reveal">
-      <div>
-        <div class="skill-group">
-          <div class="skill-group-title">Operations & Strategy</div>
-          <div class="skill-tags">
-            <span class="tag">Program Management</span>
-            <span class="tag">Strategic Planning</span>
-            <span class="tag">Process Improvement</span>
-            <span class="tag">SOP Development</span>
-            <span class="tag">SLA Management</span>
-            <span class="tag">BRD & Roadmaps</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-title">Leadership</div>
-          <div class="skill-tags">
-            <span class="tag">Cross-functional Leadership</span>
-            <span class="tag">Stakeholder Management</span>
-            <span class="tag">Team Management</span>
-            <span class="tag">Vendor Management</span>
-          </div>
-        </div>
+    <div class="reveal">
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="ops">Operations & Strategy</button>
+        <button class="filter-btn" data-filter="lead">Leadership</button>
+        <button class="filter-btn" data-filter="crm">CRM & Tools</button>
+        <button class="filter-btn" data-filter="data">Analytics & AI</button>
       </div>
-      <div>
-        <div class="skill-group">
-          <div class="skill-group-title">CRM & Business Suites</div>
-          <div class="skill-tags">
-            <span class="tag">Zoho One</span>
-            <span class="tag">LeadSquared</span>
-            <span class="tag">WATI</span>
-            <span class="tag">SpotDraft</span>
-            <span class="tag">KEKA</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-title">Analytics & AI</div>
-          <div class="skill-tags">
-            <span class="tag">Google Looker Studio</span>
-            <span class="tag">Advanced Sheets</span>
-            <span class="tag">Data Visualisation</span>
-            <span class="tag">Claude</span>
-            <span class="tag">ChatGPT</span>
-            <span class="tag">Gemini</span>
-          </div>
-        </div>
+      <div class="skill-tags">
+        <span class="tag" data-cat="ops">Program Management</span>
+        <span class="tag" data-cat="ops">Strategic Planning</span>
+        <span class="tag" data-cat="ops">Process Improvement</span>
+        <span class="tag" data-cat="ops">SOP Development</span>
+        <span class="tag" data-cat="ops">SLA Management</span>
+        <span class="tag" data-cat="ops">BRD & Roadmaps</span>
+        <span class="tag" data-cat="lead">Cross-functional Leadership</span>
+        <span class="tag" data-cat="lead">Stakeholder Management</span>
+        <span class="tag" data-cat="lead">Team Management</span>
+        <span class="tag" data-cat="lead">Vendor Management</span>
+        <span class="tag" data-cat="crm">Zoho One</span>
+        <span class="tag" data-cat="crm">LeadSquared</span>
+        <span class="tag" data-cat="crm">WATI</span>
+        <span class="tag" data-cat="crm">SpotDraft</span>
+        <span class="tag" data-cat="crm">KEKA</span>
+        <span class="tag" data-cat="data">Google Looker Studio</span>
+        <span class="tag" data-cat="data">Advanced Sheets</span>
+        <span class="tag" data-cat="data">Data Visualisation</span>
+        <span class="tag" data-cat="data">Claude</span>
+        <span class="tag" data-cat="data">ChatGPT</span>
+        <span class="tag" data-cat="data">Gemini</span>
       </div>
     </div>
   </div>
@@ -527,7 +494,7 @@
 
 <hr class="divider">
 
-<!-- GALLERY (placeholder for photos) -->
+<!-- GALLERY -->
 <section id="gallery">
   <div class="wrap">
     <div class="section-head reveal">
@@ -546,16 +513,13 @@
   </div>
 </section>
 
-<!-- EVENTS / COMPETITIONS placeholder -->
 <section id="events" style="padding-top:0;">
   <div class="wrap">
-    <div class="events-note reveal">
-      EVENTS, COMPETITIONS & RECOGNITIONS — SECTION READY FOR YOUR UPDATES
-    </div>
+    <div class="events-note reveal">EVENTS, COMPETITIONS & RECOGNITIONS — SECTION READY FOR YOUR UPDATES</div>
   </div>
 </section>
 
-<!-- CONTACT / FOOTER -->
+<!-- CONTACT -->
 <footer id="contact">
   <div class="wrap">
     <div class="footer-grid">
@@ -577,10 +541,66 @@
 </footer>
 
 <script>
+  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.counter');
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        let cur = 0;
+        const step = Math.max(target / 40, 0.1);
+        const tick = () => {
+          cur += step;
+          if(cur >= target){ el.textContent = target + suffix; }
+          else { el.textContent = Math.floor(cur) + suffix; requestAnimationFrame(tick); }
+        };
+        tick();
+        counterObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObs.observe(c));
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Expandable projects
+  document.querySelectorAll('.project-head').forEach(head => {
+    head.addEventListener('click', () => {
+      const project = head.closest('.project');
+      const wasOpen = project.classList.contains('open');
+      document.querySelectorAll('.project').forEach(p => p.classList.remove('open'));
+      if(!wasOpen) project.classList.add('open');
+    });
+  });
+
+  // Skill filters
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.tag').forEach(tag => {
+        if(filter === 'all' || tag.dataset.cat === filter){ tag.classList.remove('hidden'); }
+        else { tag.classList.add('hidden'); }
+      });
+    });
+  });
 </script>
 
 </body>
