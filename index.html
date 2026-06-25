@@ -135,6 +135,32 @@
     font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:0.1em;text-transform:uppercase;
   }
   .scroll-cue .line{width:1px;height:40px;background:linear-gradient(to bottom, var(--rust), transparent);}
+  @media(max-width:860px){.scroll-cue{display:none;}}
+
+  /* education */
+  .about-edu{margin-top:40px;}
+  .edu-label{font-family:var(--mono);font-size:12px;color:var(--purple);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  @media(max-width:560px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-card{background:var(--bg-card);padding:20px 22px;transition:background .3s;}
+  .edu-card:hover{background:var(--rust-dim);}
+  .edu-deg{font-size:15px;font-weight:600;color:var(--ink);}
+  .edu-meta{font-size:13px;color:var(--ink-faint);margin-top:5px;}
+
+  /* testimonial */
+  #endorsement{padding:110px 0;}
+  .quote{max-width:820px;margin:0 auto;text-align:center;}
+  .quote-mark{font-family:var(--serif);font-size:84px;line-height:0.5;color:var(--purple);opacity:0.22;height:46px;}
+  .quote-text{font-family:var(--serif);font-weight:400;font-size:clamp(21px,2.8vw,29px);line-height:1.5;letter-spacing:-0.01em;color:var(--ink);}
+  .quote-by{margin-top:28px;}
+  .quote-name{font-weight:600;font-size:15px;color:var(--ink);}
+  .quote-role{font-size:13px;color:var(--ink-faint);margin-top:3px;}
+  .quote-src{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:0.06em;text-transform:uppercase;margin-top:18px;}
+
+  /* footer availability */
+  .avail-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:var(--ink);background:var(--bg-card);border:1px solid var(--line-strong);border-radius:20px;padding:8px 16px;margin-bottom:18px;}
+  .avail-dot{width:9px;height:9px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 4px rgba(34,197,94,0.15);}
+  .footer-avail{color:var(--ink-dim);font-size:15.5px;line-height:1.7;max-width:430px;}
 
   /* ---------- section shell ---------- */
   section{padding:120px 0;position:relative;}
@@ -370,6 +396,7 @@
         </div>
         <div class="hero-cta">
           <a href="#work" class="btn btn-primary">View my work →</a>
+          <a href="Abhishek_Bansal_Resume.pdf" class="btn btn-ghost" style="color:var(--ink);" download>Résumé ↓</a>
           <a href="#contact" class="btn btn-ghost" style="color:var(--ink);">Get in touch</a>
         </div>
       </div>
@@ -416,6 +443,20 @@
       <div class="honor-pill">
         <div class="honor-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
         <div class="honor-txt"><b>3rd Runner-up — Unleash Hackathon 2026</b><span>Teachmint</span></div>
+      </div>
+    </div>
+
+    <div class="about-edu reveal">
+      <div class="edu-label">Education</div>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-deg">Bachelor of Business Administration (BBA)</div>
+          <div class="edu-meta">Institute of Management Studies (IMS), Noida · 2017–2020</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-deg">Senior Secondary (CBSE)</div>
+          <div class="edu-meta">Kiddy's Corner School, Gwalior · 2017</div>
+        </div>
       </div>
     </div>
   </div>
@@ -733,17 +774,37 @@
 
 <hr class="divider">
 
+<!-- ENDORSEMENT -->
+<section id="endorsement">
+  <div class="wrap">
+    <blockquote class="quote reveal">
+      <div class="quote-mark">&ldquo;</div>
+      <p class="quote-text">I found him to be super diligent with great attention to small details. His quality of seeing things through and not leaving any gaps in solutioning made him a great asset to the team. He is also constantly open and flexible towards new roles and opportunities.</p>
+      <div class="quote-by">
+        <div class="quote-name">Abhishek Krishna Iyer</div>
+        <div class="quote-role">EdTech · Toddle · ISB</div>
+      </div>
+      <div class="quote-src">Recommendation via LinkedIn</div>
+    </blockquote>
+  </div>
+</section>
+
+<hr class="divider">
+
 
 <footer id="contact">
   <div class="wrap">
     <div class="footer-grid">
       <div class="reveal">
+        <div class="avail-badge"><span class="avail-dot"></span>Open to new roles</div>
         <div class="footer-title">Let's build the <em>next system,</em> together.</div>
+        <p class="footer-avail">Looking for high-ownership Program / Strategy &amp; Ops roles — especially 0&rarr;1 problems where the system has to be built from scratch and the impact is felt fast.</p>
       </div>
       <div class="contact-list reveal">
         <div class="contact-row"><span>Email</span><a href="mailto:abhishek245370@gmail.com">abhishek245370@gmail.com</a></div>
         <div class="contact-row"><span>Phone</span><a href="tel:+917974448330">+91-7974448330</a></div>
         <div class="contact-row"><span>LinkedIn</span><a href="https://linkedin.com/in/theabhishekbansal" target="_blank">linkedin.com/in/theabhishekbansal</a></div>
+        <div class="contact-row"><span>Résumé</span><a href="Abhishek_Bansal_Resume.pdf" download>Download PDF</a></div>
         <div class="contact-row"><span>Location</span><span>Bengaluru, India</span></div>
       </div>
     </div>
